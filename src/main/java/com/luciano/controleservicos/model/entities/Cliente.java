@@ -1,12 +1,16 @@
 package com.luciano.controleservicos.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
 @Entity
@@ -21,9 +25,13 @@ public class Cliente {
     private Integer id;
 
     @Column(nullable = false, length = 150)
+    @NotEmpty(message = "O campo nome é obrigatório")
+    @Length(min = 3, max = 150, message = "O nome deve ter entre 3 e 150 caracteres")
     private String nome;
 
     @Column(nullable = false, length = 11)
+    @NotNull
+    @CPF(message = "CPF inválido")
     private String cpf;
 
     @Column(name = "data_cadastro", updatable = false)
