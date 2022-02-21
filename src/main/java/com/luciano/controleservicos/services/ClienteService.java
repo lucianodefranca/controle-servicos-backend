@@ -23,4 +23,8 @@ public class ClienteService {
     }
 
 
+    public void delete(Integer id) {
+        findById(id);
+        repository.deleteById(id);
+    }
 }

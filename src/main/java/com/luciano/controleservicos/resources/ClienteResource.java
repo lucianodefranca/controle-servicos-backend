@@ -5,6 +5,9 @@ import com.luciano.controleservicos.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/clientes")
@@ -21,7 +24,14 @@ public class ClienteResource {
 
     @PostMapping
     public ResponseEntity<Cliente> insert(@RequestBody Cliente obj) {
-        Cliente newObj = service.insert(obj);
-        return ResponseEntity.ok().build();
+        obj = service.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
