@@ -22,9 +22,15 @@ public class ClienteService {
         return repository.save(obj);
     }
 
+    public Cliente update(Cliente newObj) {
+        findById(newObj.getId());
+        return repository.save(newObj);
+    }
 
     public void delete(Integer id) {
         findById(id);
         repository.deleteById(id);
     }
+
+
 }
