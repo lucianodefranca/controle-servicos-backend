@@ -9,6 +9,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/clientes")
@@ -21,6 +22,12 @@ public class ClienteResource {
     public ResponseEntity<Cliente> findById(@PathVariable Integer id) {
         Cliente obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Cliente>> findAll() {
+        List<Cliente> list = service.findAll();
+        return ResponseEntity.ok().body(list);
     }
 
     @PostMapping
