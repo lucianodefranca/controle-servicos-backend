@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/clientes")
 public class ClienteResource {
@@ -39,7 +39,7 @@ public class ClienteResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> update(@Valid @PathVariable Integer id, @RequestBody Cliente newObj) {
+    public ResponseEntity<Cliente> update(@Valid @PathVariable Integer id, @RequestBody Cliente newObj) {
         newObj.setId(id);
         newObj = service.update(newObj);
         return ResponseEntity.noContent().build();
