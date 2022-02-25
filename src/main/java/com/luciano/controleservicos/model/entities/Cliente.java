@@ -1,23 +1,20 @@
 package com.luciano.controleservicos.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Getter
+@Setter
+@ToString
 public class Cliente {
 
     @Id
@@ -34,12 +31,30 @@ public class Cliente {
     @CPF(message = "CPF inválido")
     private String cpf;
 
-    @Column(name = "data_cadastro", updatable = false)
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataCadastro;
 
-    @PrePersist
-    public void prePersist() {
-        setDataCadastro(LocalDate.now());
+    public Cliente() {
+        this.dataCadastro = LocalDate.now();
+    }
+
+    public Cliente(Integer id, String nome, String cpf) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.dataCadastro = LocalDate.now();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Cliente cliente = (Cliente) o;
+        return id != null && Objects.equals(id, cliente.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
