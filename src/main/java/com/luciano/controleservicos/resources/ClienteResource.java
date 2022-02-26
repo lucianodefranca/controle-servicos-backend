@@ -42,7 +42,7 @@ public class ClienteResource {
     public ResponseEntity<Cliente> update(@Valid @PathVariable Integer id, @RequestBody Cliente newObj) {
         newObj.setId(id);
         newObj = service.update(newObj);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().body(newObj);
     }
 
     @DeleteMapping(value = "/{id}")

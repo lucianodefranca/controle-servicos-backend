@@ -12,9 +12,9 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-@Getter
-@Setter
-@ToString
+@Getter@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cliente {
 
     @Id
@@ -34,15 +34,9 @@ public class Cliente {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataCadastro;
 
-    public Cliente() {
-        this.dataCadastro = LocalDate.now();
-    }
-
-    public Cliente(Integer id, String nome, String cpf) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.dataCadastro = LocalDate.now();
+    @PrePersist
+    public void persist() {
+        setDataCadastro(LocalDate.now());
     }
 
     @Override
