@@ -1,13 +1,16 @@
 package com.luciano.controleservicos.model.entities;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
-@Data
-public class Servicos {
+@Getter@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class ServicoPrestado {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,5 +23,9 @@ public class Servicos {
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
+    @Column
     private BigDecimal valor;
+
+    @Column
+    private LocalDate data;
 }
