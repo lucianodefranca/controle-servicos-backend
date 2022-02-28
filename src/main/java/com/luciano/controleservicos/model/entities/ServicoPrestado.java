@@ -3,7 +3,6 @@ package com.luciano.controleservicos.model.entities;
 import lombok.*;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -24,7 +23,7 @@ public class ServicoPrestado {
     private Cliente cliente;
 
     @Column
-    private BigDecimal valor;
+    private Double valor;
 
     @Column
     private LocalDate data;
