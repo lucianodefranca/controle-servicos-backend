@@ -1,6 +1,7 @@
 package com.luciano.controleservicos.resources;
 
 import com.luciano.controleservicos.model.dtos.ServicoPrestadoDTO;
+import com.luciano.controleservicos.model.entities.ServicoPrestado;
 import com.luciano.controleservicos.services.ServicoPrestadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @CrossOrigin("http://localhost:4200")
@@ -21,8 +21,8 @@ public class ServicoPrestadoResource {
     private ServicoPrestadoService service;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ServicoPrestadoDTO> findById( @PathVariable Integer id) {
-        ServicoPrestadoDTO obj = new ServicoPrestadoDTO(service.findById(id));
+    public ResponseEntity<ServicoPrestado> findById(@PathVariable Integer id) {
+        ServicoPrestado obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 

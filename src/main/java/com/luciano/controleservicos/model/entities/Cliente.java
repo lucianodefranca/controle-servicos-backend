@@ -9,6 +9,8 @@ import org.hibernate.validator.constraints.br.CPF;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -33,6 +35,9 @@ public class Cliente {
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataCadastro;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<ServicoPrestado> servicosPrestados = new ArrayList<>();
 
     @PrePersist
     public void persist() {

@@ -1,5 +1,6 @@
 package com.luciano.controleservicos.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class ServicoPrestado {
     @Column(nullable = false, length = 150)
     private String descricao;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
@@ -27,4 +29,9 @@ public class ServicoPrestado {
 
     @Column
     private LocalDate data;
+
+    @PrePersist
+    public void persist() {
+        setData(LocalDate.now());
+    }
 }
