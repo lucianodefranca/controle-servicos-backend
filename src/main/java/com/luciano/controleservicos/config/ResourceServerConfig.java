@@ -22,9 +22,4 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                                   "/servicos-prestados").authenticated()
                 .anyRequest().denyAll();
     }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
-    }
 }
